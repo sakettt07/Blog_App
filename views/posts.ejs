@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All posts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="bg-zinc-900 w-full h-screen">
+        <div class="w-full px-10 py-6 flex justify-between items-center">
+            <a class="text-violet-500" href="/">Back</a>
+            <a class="text-violet-500" href="/profile">Profile</a>
+        </div>
+        <h1 class="text-center pt-3 text-[3vw] text-white">All Posts</h1>
+        <div class="postcont w-full px-16 gap-4 grid md:grid-cols-3 mt-5">
+            <% posts.forEach(function(item){ %>
+                <div class="post w-[460px] p-4 rounded-md border-2 bg-neutral-800">
+                    <h4 class="text-blue-500"><%= item.user.username%></h4>
+                    <p class="text-white pb-3"><%= item.content %></p>
+                </div>
+            <% }) %>
+            
+            
+        </div>
+    </div>
+    
+</body>
+</html>
