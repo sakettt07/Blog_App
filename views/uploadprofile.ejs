@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="bg-zinc-900 h-screen w-full text-white p-8">
+        <h1 class="text-[3vw] text-white mb-4">Upload profile picture</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input class="rounded-lg" type="file" placeholder="Choose File" name="image">
+            <input class="bg-yellow-500 py-2 px-3 text-black outline-none rounded-lg" type="submit" value="Upload">
+        </form>
+    </div>
+    
+</body>
+</html>

@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const postsModel = require("./models/posts.model.js");
+const upload=require("./config/multer.config.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,9 +15,29 @@ app.use(cookieParser());
 
 app.set("view engine", "ejs");
 
+
+
+
 app.get("/", function (req, res) {
   res.render("index");
 });
+
+// Implementation of the multer
+
+app.get("/profile/upload",function(req,res){
+  res.render("uploadprofile");
+})
+app.post("/upload",isLoggedIn, upload.single("image"), async function(req,res){
+  let user=await userModel.findOne({email:req.user.email});
+  user.profilepic=req.file.filename;
+  await user.save();
+  res.redirect("/profile");
+})
+
+
+
+
+
 app.get("/login", function (req, res) {
   res.render("login");
 });

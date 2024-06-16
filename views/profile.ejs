@@ -10,11 +10,14 @@
     <div class="bg-zinc-900 min-h-screen w-full text-white p-8">
       <div class="w-full flex justify-between">
         <a class="text-violet-500" href="/allposts">All posts -></a>
-        <a class="bg-red-500 rounded-lg hover:bg-red-700 p-3" href="/logout"
-          >Logout</a
-        >
+        <a class="bg-red-500 rounded-lg hover:bg-red-700 p-3" href="/logout">Logout</a>
       </div>
-      <h1 class="text-[3vw] text-white">Hi, <%= user.name %> 👋</h1>
+      <div class="flex gap-4 items-center">
+        <div class="w-10 h-10 bg-yellow-500 overflow-hidden rounded-md">
+          <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>" alt="">
+        </div>
+        <h1 class="text-[3vw] text-white">Hi, <%= user.name %> 👋</h1>
+      </div>
       <p class="mb-4">You can add new post</p>
       <form method="post" action="/post">
         <textarea
@@ -30,23 +33,27 @@
       </form>
       <div class="posts mt-20">
         <h4 class="text-gray-400">Your Posts</h4>
-        <div class="postcont w-full px-4 gap-2 grid md:grid-cols-3 mt-5">
-          <% user.posts.reverse().forEach(function(post){ %>
-          <div class="post w-[460px] p-4 rounded-md border-2 bg-neutral-800">
-            <h4 class="text-blue-500"><%= user.username%></h4>
-            <p class="text-white"><%= post.content %></p>
-            <small class="mt-2"><%= post.likes.length %> likes</small>
-            <div class="flex gap-4">
-              <a
-                class="text-red-600 hover:text-pink-500"
-                href="/like/<%= post._id %>">
-                <%= post.likes.indexOf(user._id)===-1 ? "Like" :"Unlike" %>
-            </a>
-              <a class="text-gray-600 hover:text-gray-500" href="/edit/<%=  post._id%>">edit</a>
-            </div>
+        <% if (user.posts.length > 0) { %>
+          <div class="postcont w-full px-4 gap-2 grid md:grid-cols-3 mt-5">
+            <% user.posts.reverse().forEach(function(post){ %>
+              <div class="post w-[460px] p-4 rounded-md border-2 bg-neutral-800">
+                <h4 class="text-blue-500"><%= user.username %></h4>
+                <p class="text-white"><%= post.content %></p>
+                <small class="mt-2"><%= post.likes.length %> likes</small>
+                <div class="flex gap-4">
+                  <a
+                    class="text-red-600 hover:text-pink-500"
+                    href="/like/<%= post._id %>">
+                    <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+                  </a>
+                  <a class="text-gray-600 hover:text-gray-500" href="/edit/<%= post._id %>">edit</a>
+                </div>
+              </div>
+            <% }) %>
           </div>
-          <% }) %>
-        </div>
+        <% } else { %>
+          <p class="text-[3vw] text-center mt-12 text-gray-500">No posts yet</p>
+        <% } %>
       </div>
     </div>
   </body>
